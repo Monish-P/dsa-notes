@@ -2,7 +2,7 @@
 * while using two pointers (i,j) ,
   * if operation is done on ith element then increase or decrease i
   * if operation is done on jth element then increase or decrease j
-  *but not both
+	* but not both
 
 * merge step in merge sort , or union of two sorted arrays
 ```
