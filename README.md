@@ -1,11 +1,11 @@
 # dsa-notes
-* while using two pointers (i,j) ,
+## while using two pointers (i,j) ,
  * if operation is done on ith element then increase or decrease i
  * if operation is done on jth element then increase or decrease j
   **but not both
 
 * merge step in merge sort , or union of two sorted arrays
-'''
+```
 def findUnion(self,a,b):
         # code here
         ans = []
@@ -34,6 +34,6 @@ def findUnion(self,a,b):
                 ans.append(b[j])
             j+=1
         return ans
-'''
+```
 
 
