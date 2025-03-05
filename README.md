@@ -36,4 +36,14 @@ def findUnion(self,a,b):
         return ans
 ```
 
+* Two sum , when there are numbers that are not to be sorted:
+  ```
+  def twoSum(self, nums: List[int], target: int) -> List[int]:
+
+        d = {}
+        for i in range(len(nums)):
+            if target - nums[i] in d:
+                return sorted([i,d[target - nums[i]]])
+            else:
+  ```
 
