@@ -61,18 +61,12 @@ implement hashmap basic approach
     def remove(self, key: int) -> None:
         self.map[key] = -1
     
-
-# Your MyHashMap object will be instantiated and called as such:
-# obj = MyHashMap()
-# obj.put(key,value)
-# param_2 = obj.get(key)
-# obj.remove(key)
    ```
 
 implement hashset basic approach
 1. using arrays
    ```
-class MyHashSet:
+	class MyHashSet:
 
     def __init__(self):
         self.set = [False]*1000001
