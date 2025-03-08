@@ -3,7 +3,51 @@
   * if operation is done on ith element then increase or decrease i
   * if operation is done on jth element then increase or decrease j
 	* but not both
+* merge sort
+  ```
+  class Solution:
+    def merge(self,arr,low,mid,high):
+        L,R = [],[]
+        n1,n2 = 0,0
+        for i in range(low,mid+1):
+            L.append(arr[i])
+            n1+=1
+        for i in range(mid,high):
+            R.append(arr[i+1])
+            n2+=1
+        i,j,k = 0,0,low
+        while i<n1 and j<n2:
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i+=1
+            else:
+                arr[k] = R[j]
+                j+=1
+            k+=1
+        while i<n1:
+            arr[k] = L[i]
+            i+=1
+            k+=1
+        
+        while j<n2:
+            arr[k] = R[j]
+            j+=1
+            k+=1
 
+    def ms(self,arr,low,high):
+        if low<high:
+            mid = (low+high)//2
+            self.ms(arr,low,mid)
+            self.ms(arr,mid+1,high)
+            self.merge(arr,low,mid,high)
+
+    def sortArray(self, nums) :
+        self.ms(nums,0,len(nums)-1)
+        return nums
+
+	s = Solution()        
+	print(s.sortArray([5,4,3,2,1]))
+  ```
 * merge step in merge sort , or union of two sorted arrays
 ```
 def findUnion(self,a,b):
