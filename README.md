@@ -125,5 +125,119 @@ implement hashset basic approach
     def contains(self, key: int) -> bool:
         return self.set[key]
    ```
-* Bucket sort -  is a sorting technique that involves dividing elements into various groups, or buckets. These buckets are formed by uniformly distributing the elements. Once the elements are divided into buckets, they can be sorted using any other sorting algorithm. Finally, the sorted elements are gathered together in an ordered fashion.
+
+* Bucket sort -  is a sorting technique that involves dividing elements into various groups, or buckets. These buckets are formed by uniformly distributing the elements. Once the elements are divided into buckets, they can be sorted using any other sorting algorithm. Finally, the sorted elements are gathered together in an ordered fashion
+
+    * Use this when its mentioned that the elements of the array lie in some range like (0-100) and need to sort it.
+
+    * below example is to sort array containing only 0,1 and 2s
+
+    ```
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        count = [0,0,0]
+        for n in nums:
+            count[n]+=1
+        pointer = 0
+        for i in range(3):
+            for j in range(count[i]):
+                nums[pointer] = i
+                pointer+=1
+    ```
+    * another example of bucket sort - top most frequent or less frequent elements. here we are creating the bucket with frequency as the key or index.so that we can iterate the frequencies.
+
+    ```
+    class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        d = {}
+        ans = []
+        l = len(nums)
+        for n in nums:
+            if n not in d:
+                d[n] = 1
+            else:
+                d[n]+=1
+
+        countDict = {}
+        for key,value in d.items():
+            if value not in countDict:
+                countDict[value] = [key]
+            else:
+                countDict[value].append(key)
+
+        for freq in range (l,0,-1):
+            if freq in countDict:
+                for n in countDict[freq]:
+                    ans.append(n)
+                    k-=1
+                    if k == 0:
+                        return ans
+            if k == 0:
+                return ans
+        return ans
+
+        
+    ```
+
+* Kadane's alg - for finding sub arrays mostly with max sum or min sum or max length or min length or any criteria given
+
+    * basic alg - Before we add the current element, we check if the curSum is negative. If it is, we reset it to zero.
+    ```
+    def slidingWindow(nums):
+    maxSum = nums[0]
+    curSum = 0
+    maxL, maxR = 0, 0
+    L = 0
+
+    for R in range(len(nums)):
+        if curSum < 0:
+            curSum = 0
+            L = R
+
+        curSum += nums[R]
+        if curSum > maxSum:
+            maxSum = curSum
+            maxL, maxR = L, R 
+
+    return [maxL, maxR]
+    ```
+    * ex1: Given an integer array arr, return the length of a maximum size turbulent subarray of arr. A subarray is turbulent if the comparison sign flips between each adjacent pair of elements in the subarray.
+
+        Input: arr = [9,4,2,10,7,8,8,1,9]
+
+        Output: 5
+        
+        Explanation: arr[1] > arr[2] < arr[3] > arr[4] < arr[5]
+
+    ```
+    class Solution:
+    def maxTurbulenceSize(self, arr: List[int]) -> int:
+        n = len(arr)
+        res = cnt = 0
+        sign = -1
+        
+        for i in range(n - 1):
+            if arr[i] > arr[i + 1]:
+                cnt = cnt + 1 if sign == 0 else 1
+                sign = 1
+            elif arr[i] < arr[i + 1]:
+                cnt = cnt + 1 if sign == 1 else 1
+                sign = 0
+            else:
+                cnt = 0
+                sign = -1
+                
+            res = max(res, cnt)
+            
+        return res + 1
+    ```
+
+* Prefix sum alg - store the sum from first index to given index in new array prefix .
+
+    * Ex1: get the subarray sum with given two indicies
+    ![alt text](image.png)
+
+    * 
 
