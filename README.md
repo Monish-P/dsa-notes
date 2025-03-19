@@ -125,7 +125,6 @@ implement hashset basic approach
     def contains(self, key: int) -> bool:
         return self.set[key]
    ```
-
 * Bucket sort -  is a sorting technique that involves dividing elements into various groups, or buckets. These buckets are formed by uniformly distributing the elements. Once the elements are divided into buckets, they can be sorted using any other sorting algorithm. Finally, the sorted elements are gathered together in an ordered fashion
 
     * Use this when its mentioned that the elements of the array lie in some range like (0-100) and need to sort it.
@@ -239,5 +238,112 @@ implement hashset basic approach
     * Ex1: get the subarray sum with given two indicies
     ![alt text](image.png)
 
-    * 
+    * Ex2: Given a 2D matrix matrix, Calculate the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+
+    * The idea here is to calculate the sum of red box:
+        1. Calculate sum of pink box
+        2. Subtract sum of yellow box
+        3. Subtract sum of green box
+        4. Add the column sum above green box (since its already subtracted) which is 3,5
+    ![alt text](<Screenshot 2025-03-16 at 5.08.34 PM.png>)
+
+    ```
+    class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        self.prefix = []
+        for i in range(len(matrix)):
+            prefixSum = 0
+            row = []
+            if i == 0:
+                for j in range(len(matrix[i])):
+                    prefixSum += matrix[i][j]
+                    row.append(prefixSum)
+            else:
+                for j in range(len(matrix[i])):
+                    prefixSum += matrix[i][j]
+                    row.append(prefixSum + self.prefix[i-1][j])
+            self.prefix.append(row)
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+
+        if row1 == 0 and col1 != 0:
+            return (self.prefix[row2][col2]) - (self.prefix[row2][col1-1])
+
+        elif row1 != 0 and col1 == 0:
+            return (self.prefix[row2][col2]-self.prefix[row1-1][col2])
+
+        elif row1 == 0 and col1 == 0:
+            return self.prefix[row2][col2]
+
+        else:
+            return (self.prefix[row2][col2] - self.prefix[row1-1][col2]) - (self.prefix[row2][col1-1] - self.prefix[row1-1][col1-1])
+    ```
+
+    * Ex3: Product of array elements except itself 
+
+    * Naive approach time complexity - O(n^2) and should be done without using divison operator
+
+    * Using prefix and suffix products - O(n)
+
+    ```
+    class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        l = len(nums)
+        prefix = []
+        suffix = [0]*l
+        prod = 1
+        for n in nums:
+            prod *= n
+            prefix.append(prod)
+
+        prod = 1
+        for i in range(l-1,-1,-1):
+            prod *= nums[i]
+            suffix[i] = prod
+
+        for i in range(l):
+            if i == 0:
+                prod = suffix[i+1]
+            elif i == l-1:
+                prod = prefix[i-1]
+            else:
+                prod = prefix[i-1]*suffix[i+1]
+            nums[i] = prod
+        return nums
+    ```
+
+    * Ex-4 : Given Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+
+        Brute force: Find all the subarrays and calculate their sums to check for equals to k. O(n^2)
+
+        Optimal : Using prefix sum and hash maps.
+
+        Intution: 
+        ![alt text](image-1.png)
+        If there is an array , whose prefix sum till index i from 0 is S . We need to find the subarray in this array whose sum equals k and ends with index i. So excluding subarray , with prefixsum equals S-k will give subarray with sum k. For every k , there is exists equivalent S-k i.e.. if there are two subarrys with sum k then there will be two subarrys with sum S-k  in the same array. Finding S-k is more convenient then finding k , because S-k is the prefix sum.Maintain a hashmap with each prefix and their respective counts that has occured in the array.
+        ![alt text](image-2.png)
+
+        Solution: https://leetcode.com/problems/subarray-sum-equals-k/description/ 
+* Prob - Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+    Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+Note:
+
+    A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+Only the filled cells need to be validated according to the mentioned rules.
+
+    Approach - create a 3 different dictionaries for row, cols and boxs. each key in the dictionaries is another dictionary to check the value exists or not.
+https://leetcode.com/problems/valid-sudoku/description/
+
+* Prob - Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+    You must write an algorithm that runs in O(n) time.
+
+    Approach - identify the start of a sequence? For example, in [1, 2, 3, 10, 11, 12], only 1 and 10 are the beginning of a sequence. Instead of trying to form a sequence for every number, we should only consider numbers like 1 and 10.We iterate through the array and only start building the sequence if it is the start of a sequence. This avoids repeated work. We can use a hash set for O(1) lookups by converting the array to a hash set.https://leetcode.com/problems/longest-consecutive-sequence/description/
+
+* 
+
 
