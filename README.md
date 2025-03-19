@@ -245,7 +245,7 @@ implement hashset basic approach
         2. Subtract sum of yellow box
         3. Subtract sum of green box
         4. Add the column sum above green box (since its already subtracted) which is 3,5
-    ![alt text](<Screenshot 2025-03-16 at 5.08.34 PM.png>)
+    ![alt text](image-3.png)
 
     ```
     class NumMatrix:
