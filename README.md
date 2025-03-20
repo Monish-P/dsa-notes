@@ -344,6 +344,8 @@ https://leetcode.com/problems/valid-sudoku/description/
 
     Approach - identify the start of a sequence? For example, in [1, 2, 3, 10, 11, 12], only 1 and 10 are the beginning of a sequence. Instead of trying to form a sequence for every number, we should only consider numbers like 1 and 10.We iterate through the array and only start building the sequence if it is the start of a sequence. This avoids repeated work. We can use a hash set for O(1) lookups by converting the array to a hash set.https://leetcode.com/problems/longest-consecutive-sequence/description/
 
-* 
+* Two pointers alg -
+  * One diff b/w two pointers alg and sliding window technique is in two pointers we care about only the two elements the indicies are pointing to , but in sliding window we care about the subarray between these two indicies.
+  * 
 
 
